@@ -25,7 +25,7 @@ namespace TestWork
                 int cols = worksheet.Cells.MaxDataColumn + 1;
                 string[] value = new string[cols];
 
-                using (var con = new SqliteConnection("Data Source=\\TestWork\\TestWork.db"))   // Соединение с БД
+                using (var con = new SqliteConnection("Data Source=TestWork.db"))   // Соединение с БД
                 {
                     con.Open();
                     SqliteCommand cmd = new SqliteCommand();
@@ -71,13 +71,13 @@ namespace TestWork
         {
             try
             {
-                DateTime[] days = Enumerable.Range(1, (int)(dateTimePickerEnd.Value - dateTimePickerBegin.Value).TotalDays - 1).  // Между - означает не включительно
+                DateTime[] days = Enumerable.Range(1, (int)(dateTimePickerEnd.Value - dateTimePickerBegin.Value).TotalDays).  // Думал, что между не учитывает начальный день
                     Select(d => dateTimePickerBegin.Value.AddDays(d)).ToArray();
 
                 var workdays = new List<DateTime>(days);    // Рабочие дни, var для удаления
                 var workinholidays = new List<DateTime>();  // Список рабочих дней в выходные
 
-                using (var con = new SqliteConnection("Data Source=\\TestWork\\TestWork.db"))  // Удаление праздничных дней из списка дней
+                using (var con = new SqliteConnection("Data Source=TestWork.db"))  // Удаление праздничных дней из списка дней
                 {
                     con.Open();
                     SqliteCommand cmd = new SqliteCommand();
